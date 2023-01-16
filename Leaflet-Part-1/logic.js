@@ -12,23 +12,36 @@ console.log("Data Promise: ",dataPromise);
 d3.json(url).then(function (data) {
   // Once we get a response, send the data.features object to the createFeatures function.
   console.log(data.features);
+  let colorlist = ['#f0f921','#fdca26','#fb9f3a','#ed7953','#d8576b','#bd3786','#9c179e','#7201a8','#46039f','#0d0887']//reverse plasma
+
+  function getColor(depth){
+    if (depth > 250) {return colorlist[10];}
+    if (depth > 200) {return colorlist[9];}
+    if (depth > 150) {return colorlist[8];}
+    if (depth > 100) {return colorlist[7];}
+    if (depth > 50) {return colorlist[6];}
+    if (depth > 20) {return colorlist[5];}
+    if (depth > 15) {return colorlist[4];}
+    if (depth > 10) {return colorlist[6];}
+    if (depth > 5) {return colorlist[2];}
+    if (depth > 1) {return colorlist[1];}
+    else return colorlist[1];
+  };
 
   //create circle markers
   const circleMarkers = [];
-    data.features.forEach(feature=> {
+  data.features.forEach(feature=> {
 
-      let color 
-
-      circleMarkers.push(L.circleMarker([feature.geometry.coordinates[1],feature.geometry.coordinates[0]], {
-        opacity: .9,
-        color: feature.geometry.coordinates[2],
-        fillColor: feature.geometry.coordinates[2],
-        radius: feature.properties.mag*2,
+    circleMarkers.push(L.circleMarker([feature.geometry.coordinates[1],feature.geometry.coordinates[0]], {
+      opacity: .9,
+      color: getColor(feature.geometry.coordinates[2]),
+      fillColor: getColor(feature.geometry.coordinates[2]),
+      radius: feature.properties.mag*2,
       }))
         // circleMarkers.setRadius(feature.properties.mag*1000)
         // .bindPopup(`<h3>${feature.properties.place}</h3><hr><p>${new Date(feature.properties.time)}</p>`)
 
-      });
+  });
       console.log(circleMarkers)
   createFeatures(data.features);
   
@@ -80,7 +93,21 @@ d3.json(url).then(function (data) {
       collapsed: false
     }).addTo(myMap);
 
+
+
+
+
+
+
+
+
+
+
+
+
+
   };
+
 
 
 
