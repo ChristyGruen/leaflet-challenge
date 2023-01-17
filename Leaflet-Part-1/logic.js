@@ -34,7 +34,8 @@ d3.json(url).then(function (data) {
 }
 
 
-  //create circle markers 
+  //create circle markers
+   
   const circleMarkers = [];
   data.features.forEach(feature=> {
 
@@ -43,9 +44,9 @@ d3.json(url).then(function (data) {
       color: getColor(feature.geometry.coordinates[2]),
       fillColor: getColor(feature.geometry.coordinates[2]),
       radius: feature.properties.mag*2,
-      }))
-        // circleMarkers.setRadius(feature.properties.mag*1000)
-        // .bindPopup(`<h3>${feature.properties.place}</h3><hr><p>${new Date(feature.properties.time)}</p>`)
+      }).bindPopup(`<h2>${feature.properties.place}</h2><hr><h3>Magnitude ${feature.properties.mag}<\h3><hr><h3>Depth ${feature.geometry.coordinates[2]}`))
+      
+    // .bindPopup(`<h3>${feature.properties.place}</h3><hr><p>${new Date(feature.properties.time)}</p>`)
 
   });
       console.log(circleMarkers)
@@ -54,7 +55,9 @@ d3.json(url).then(function (data) {
 
 
   function createMap(earthquakes) {
-    let circleLayer = L.layerGroup(circleMarkers);
+    let circleLayer = L.layerGroup(circleMarkers)
+    // .bindPopup('hello world').on('click',function(){alert('Clicked on a group!');})
+    ;
     console.log(circleLayer)
 
     // Create the base layers.
@@ -112,13 +115,16 @@ d3.json(url).then(function (data) {
     function onEachFeature(feature, layer) {
       layer.bindPopup(`<h1>${feature.properties.place}</h1><hr><h3>Magnitude ${feature.properties.mag}<\h3><hr><h3>Depth ${feature.geometry.coordinates[2]}`);
     }
+    var circleLayer = L.geoJSON(earthquakeData, {
+      onEachFeature: onEachFeature
+    });
 
     var earthquakes = L.geoJSON(earthquakeData, {
       onEachFeature: onEachFeature
     });
 
     // Send our earthquakes layer to the createMap function/
-    createMap(earthquakes);
+    createMap(earthquakes, circleLayer);
   }
 
 //end of d3
