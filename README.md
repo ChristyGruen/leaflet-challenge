@@ -3,12 +3,12 @@
 ## **Homework Log**
 
 The Module 15 Challenge homework is located in the leaflet-challenge repository.  
-xxx
+
 
 ---
 ## **Purpose**
 
-The purpose of this challenge is to visualize USGS data to better educate the public and other government organizations (and hopefully secure more funding) on issues facing our planet. Visualizations should include an earthquake visualization map using USGS GeoJSON data and may include additional data to illustrate the relationship between tectonic plates and seismic activity.
+The purpose of this challenge is to visualize USGS data to better educate the public and other government organizations on issues facing our planet. Visualizations should include an earthquake visualization map using USGS GeoJSON data and may include additional data to illustrate the relationship between tectonic plates and seismic activity.
 
 
 ## **Attribution**
