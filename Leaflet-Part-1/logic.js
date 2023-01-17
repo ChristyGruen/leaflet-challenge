@@ -49,6 +49,28 @@ d3.json(url).then(function (data) {
     // .bindPopup(`<h3>${feature.properties.place}</h3><hr><p>${new Date(feature.properties.time)}</p>`)
 
   });
+
+
+//   //need to split this off into a separate data pull
+//   https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_plates.json
+// // Create a Polygon, and pass in some initial options.
+// const plateMarkers = [];
+// data.features.forEach(feature=>{
+//     plateMarkers.push(L.polygon([
+//       [45.54, -122.68],
+//       [45.55, -122.68],
+//       [45.55, -122.66]
+//     ], {
+//       color: "yellow",
+//       fillColor: "yellow",
+//       fillOpacity: 0.75
+//     }).addTo(myMap).bindPopup(favoriteanimal[3]));
+//   });
+
+
+
+
+
       console.log(circleMarkers)
   createFeatures(data.features);
   
@@ -78,7 +100,7 @@ d3.json(url).then(function (data) {
     // Create an overlay object to hold our overlay.
     let overlayMaps = {
       CircleCities:circleLayer,
-      Earthquakes: earthquakes
+      // Earthquakes: earthquakes
       // ,Tectonics: tectonics
     };
 
@@ -119,12 +141,12 @@ d3.json(url).then(function (data) {
       onEachFeature: onEachFeature
     });
 
-    var earthquakes = L.geoJSON(earthquakeData, {
-      onEachFeature: onEachFeature
-    });
+    // var earthquakes = L.geoJSON(earthquakeData, {
+    //   onEachFeature: onEachFeature
+    // });
 
     // Send our earthquakes layer to the createMap function/
-    createMap(earthquakes, circleLayer);
+    createMap(circleLayer);
   }
 
 //end of d3
