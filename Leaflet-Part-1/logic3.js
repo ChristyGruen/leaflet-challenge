@@ -1,4 +1,4 @@
-//  This is the best so far
+//  This is the best so far as of 16Jan2023 4:45 pm
 // source of starter code Mod15-Day1-Act10-Stu_GeoJSON solved logic.js
 //C:\Users\chrisgru\UofM-VIRT-DATA-PT-09-2022-U-LOLC\15-Mapping-Web\1\Activities\10-Stu_GeoJson\Solved
 
@@ -14,27 +14,22 @@ d3.json(url).then(function (data) {
   // Once we get a response, send the data.features object to the createFeatures function.
   console.log(data.features);
   let colorlist = ['#f0f921','#fdca26','#fb9f3a','#ed7953','#d8576b','#bd3786','#9c179e','#7201a8','#46039f','#0d0887']//reverse plasma
-  let colorlist2 = ['#ffffe5','#f7fcb9','#d9f0a3','#addd8e','#78c679','#41ab5d','#238443','#006837','#004529'];
-  let colorlist3 = ['#ffffd9','#edf8b1','#c7e9b4','#7fcdbb','#41b6c4','#1d91c0','#225ea8','#253494','#081d58']
 
-  //leaflet option to return color
-  //https://colorbrewer2.org/#type=sequential&scheme=YlGn&n=9
-  //https://leafletjs.com/examples/choropleth/  
-  function getColor(depth) {
-    return depth > 250 ? colorlist3[9] :
-           depth > 150 ? colorlist3[8] :
-           depth > 100 ? colorlist3[7] :
-           depth > 50  ? colorlist3[6] :
-           depth > 20  ? colorlist3[5] :
-           depth > 15  ? colorlist3[4] :
-           depth > 10  ? colorlist3[3] :
-           depth > 5   ? colorlist3[2] :
-           depth > 1   ? colorlist3[1] :
-                         colorlist3[0];
-}
+  function getColor(depth){
+    if (depth > 250) {return colorlist[10];}
+    if (depth > 200) {return colorlist[9];}
+    if (depth > 150) {return colorlist[8];}
+    if (depth > 100) {return colorlist[7];}
+    if (depth > 50) {return colorlist[6];}
+    if (depth > 20) {return colorlist[5];}
+    if (depth > 15) {return colorlist[4];}
+    if (depth > 10) {return colorlist[6];}
+    if (depth > 5) {return colorlist[2];}
+    if (depth > 1) {return colorlist[1];}
+    else return colorlist[1];
+  };
 
-
-  //create circle markers 
+  //create circle markers
   const circleMarkers = [];
   data.features.forEach(feature=> {
 
@@ -99,7 +94,26 @@ d3.json(url).then(function (data) {
       collapsed: false
     }).addTo(myMap);
 
+
+
+
+
+
+
+
+
+
+
+
+
+
   };
+
+
+
+
+
+
 
   function createFeatures(earthquakeData) {
 
@@ -123,3 +137,87 @@ d3.json(url).then(function (data) {
 
 //end of d3
 });
+
+
+
+// function createFeatures(earthquakeData) {
+//   L.circle([-122.2705002, 37.894001]).addTo(myMap)
+//   createMap(earthquakes)
+// };
+
+  // Define a function that we want to run once for each feature in the features array.
+  // Give each feature a popup that describes the place and time of the earthquake.
+  // function onEachFeature(feature, layer) {
+  //   layer.bindPopup(`<h3>${feature.properties.place}</h3><hr><p>${new Date(feature.properties.time)}</p>`);
+  // };
+
+  // Create a GeoJSON layer that contains the features array on the earthquakeData object.
+  // Run the onEachFeature function once for each piece of data in the array.
+  // var earthquakes = L.geoJSON(earthquakeData, {
+  //   onEachFeature: onEachFeature
+  // });
+
+
+  // var earthquakes = L.geoJSON(earthquakeData, {
+  //   onEachFeature: onEachFeature
+
+  // });
+
+
+//   data.forEach(elephant => {
+//     L.circle([elephant.geometry.coordinates[1], elephant.geometry.coordinates[0]],
+//       // elephant.geometry.coordinates[].location, 
+//       {
+//         fillOpacity:1,
+//         color:"green",
+//         fillColor: "blue", // marker color dependent on earthquake depth
+//         radius: 100//elephant.properties.mag //marker size dependent on earthquake magnitude
+//         }).addTo(myMap)
+//         .bindPopup(`<h1>${elephant.properties.place}</h1><hr><h3>Magnitude ${elephant.properties.mag}<\h3><hr><h3>Depth ${elephant.geometry.coordinates[2]}`)
+//     })
+
+
+
+
+
+
+//   createMap(earthquakes);
+// };
+// //code from mod15-d2-act03
+// function createFeatures(earthquakeData) {
+// let markers = L.circle();
+
+// // Loop through the data.
+// for (let i = 0; i < earthquakeData.length; i++) {
+
+//   // Set the data location property to a variable.
+//   let location = earthquakeData[i].geometry;
+
+//   // Check for the location property.
+//   if (location) {
+
+//     // Add a new marker to the cluster group, and bind a popup.
+//     markers.addLayer(L.marker([location.coordinates[1], location.coordinates[0]])
+//       .bindPopup(earthquakeData[i].descriptor));
+//   }
+
+// }
+// };
+//marker size features.properties.mag
+//marker color geometry.coordinates[2]
+//longitude geometry.coordinates[0]
+//latitude geometry.coordinates[1]
+
+//how to create other markers Mod15-Day1-Act04 Ins_Other_Markers
+// L.circle([44.52, -122.69], {
+//   color: "green",
+//   fillColor: "green",
+//   fillOpacity: 0.75,
+//   radius: 500
+// }).addTo(myMap)
+// .bindPopup("Portland Avg Precipation");
+
+//set radius using magnitude level
+//set fillcolor using depth level
+//bindpopup with magnitude, location and depth
+
