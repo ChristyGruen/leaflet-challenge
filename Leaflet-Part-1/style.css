@@ -23,22 +23,10 @@ h1 {
   border-radius: 5px;
 }
 
-.info-legend {
-  background: white;
-  padding: 10px;
-  border-radius: 10px;
-}
-
 .legend i {
   width: 18px;
   height: 18px;
   float: left;
   margin: 0 8px 0 0;
   opacity: 0.7;
-  /* padding:2px; */
-}
-
-.legend i.icon {
-  background-size: 18px;
-  background-color: rgba(255, 255, 255, 1);
 }

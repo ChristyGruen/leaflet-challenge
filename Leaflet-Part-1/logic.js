@@ -46,22 +46,23 @@ d3.json(url).then(function (data) {
   });
 
 
+
+
 //   //need to split this off into a separate data pull
 //   https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_plates.json
 // // Create a Polygon, and pass in some initial options.
-// const plateMarkers = [];
-// data.features.forEach(feature=>{
-//     plateMarkers.push(L.polygon([
-//       [45.54, -122.68],
-//       [45.55, -122.68],
-//       [45.55, -122.66]
-//     ], {
-//       color: "yellow",
-//       fillColor: "yellow",
-//       fillOpacity: 0.75
-//     }).addTo(myMap).bindPopup(favoriteanimal[3]));
-//   });
 
+const tectonicPlates = [];
+data.features.forEach(feature=>{
+    tectonicPlates.push(L.polygon([feature.geometry.coordinates
+    ], {
+      color: "purple",
+      fillColor: "yellow",
+      fillOpacity: 0.75
+    }).bindPopup(feature.properties.PlateName));
+    console.log(tectonicPlates)
+  });
+      console.log(tectonicPlates)
       console.log(circleMarkers)
   createFeatures(data.features);
   
@@ -69,6 +70,7 @@ d3.json(url).then(function (data) {
 
   function createMap(earthquakes) {
     let circleLayer = L.layerGroup(circleMarkers)
+    let tectonicsLayer = L.layerGroup(tectonicPlates)
     // .bindPopup('hello world').on('click',function(){alert('Clicked on a group!');})
     ;
     console.log(circleLayer)
@@ -92,7 +94,7 @@ d3.json(url).then(function (data) {
     let overlayMaps = {
       CircleCities:circleLayer,
       // Earthquakes: earthquakes
-      // ,Tectonics: tectonics
+      Tectonics: tectonicsLayer,
     };
 
     // Create our map, giving it the streetmap and earthquakes layers to display on load.
@@ -105,7 +107,7 @@ d3.json(url).then(function (data) {
       layers: [street,
         circleLayer, 
         // earthquakes
-      // ,tectonics
+        tectonicsLayer,
     ]
     });
 
@@ -120,7 +122,7 @@ d3.json(url).then(function (data) {
     // create legend copied from Mod15-Day2-Act04 and updated from https://gis.stackexchange.com/questions/193161/add-legend-to-leaflet-map
     let legend = L.control({ position: "bottomright" });
     legend.onAdd = function() {
-      let div = L.DomUtil.create("div", "info legend ");
+      let div = L.DomUtil.create("div", "legend");
       let labels = [' less than 1','1-5', '5-10', '10-15', '15-20', '20-50', '50-100', '100-150', '150-250', 'greater than 250'];
       let colors = colorlist3
       console.log(colors)
