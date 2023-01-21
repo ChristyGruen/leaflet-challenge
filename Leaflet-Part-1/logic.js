@@ -14,9 +14,8 @@ d3.json(url).then(function (data) {
   // Once we get a response, send the data.features object to the createFeatures function.
   console.log(data.features);
   let colorlist = ['#f0f921','#fdca26','#fb9f3a','#ed7953','#d8576b','#bd3786','#9c179e','#7201a8','#46039f','#0d0887']//reverse plasma
-  let colorlist2 = ['#ffffe5','#f7fcb9','#d9f0a3','#addd8e','#78c679','#41ab5d','#238443','#006837','#004529'];
-  let colorlist3 = ['#ffffd9','#edf8b1','#c7e9b4','#7fcdbb','#41b6c4','#1d91c0','#225ea8','#253494','#081d58']
-
+  let colorlist2 = ['#ffffe5','#f7fcb9','#d9f0a3','#addd8e','#78c679','#41ab5d','#238443','#006837','#004529','#002415'];//multi-hue yellow green plus one
+  let colorlist3 = ['#ffffd9','#edf8b1','#c7e9b4','#7fcdbb','#41b6c4','#1d91c0','#225ea8','#253494','#081d58','#000000']//  '#011859'multi-hue yellow blue plus one
   //leaflet option to return color
   //https://colorbrewer2.org/#type=sequential&scheme=YlGn&n=9
   //https://leafletjs.com/examples/choropleth/  
@@ -31,8 +30,7 @@ d3.json(url).then(function (data) {
            depth > 5   ? colorlist3[2] :
            depth > 1   ? colorlist3[1] :
                          colorlist3[0];
-}
-
+};
 
   //create circle markers
    
@@ -45,9 +43,6 @@ d3.json(url).then(function (data) {
       fillColor: getColor(feature.geometry.coordinates[2]),
       radius: feature.properties.mag*2,
       }).bindPopup(`<h2>${feature.properties.place}</h2><hr><h3>Magnitude ${feature.properties.mag}<\h3><hr><h3>Depth ${feature.geometry.coordinates[2]}`))
-      
-    // .bindPopup(`<h3>${feature.properties.place}</h3><hr><p>${new Date(feature.properties.time)}</p>`)
-
   });
 
 
@@ -66,10 +61,6 @@ d3.json(url).then(function (data) {
 //       fillOpacity: 0.75
 //     }).addTo(myMap).bindPopup(favoriteanimal[3]));
 //   });
-
-
-
-
 
       console.log(circleMarkers)
   createFeatures(data.features);
@@ -109,6 +100,7 @@ d3.json(url).then(function (data) {
       center: [
         0,0
       ],
+
       zoom: 2,
       layers: [street,
         circleLayer, 
@@ -117,12 +109,42 @@ d3.json(url).then(function (data) {
     ]
     });
 
-    // Create a layer control.
-    // Pass it our baseMaps and overlayMaps.
-    // Add the layer control to the map.
     L.control.layers(baseMaps, overlayMaps, {
       collapsed: false
     }).addTo(myMap);
+
+    //there is a way to create a legend with a plugin
+    // https://github.com/ptma/Leaflet.Legend
+
+    //need css style components to get this to work
+    // create legend copied from Mod15-Day2-Act04 and updated from https://gis.stackexchange.com/questions/193161/add-legend-to-leaflet-map
+    let legend = L.control({ position: "bottomright" });
+    legend.onAdd = function() {
+      let div = L.DomUtil.create("div", "info legend ");
+      let labels = [' less than 1','1-5', '5-10', '10-15', '15-20', '20-50', '50-100', '100-150', '150-250', 'greater than 250'];
+      let colors = colorlist3
+      console.log(colors)
+
+      let legendInfo = "<h4><strong>Earthquake Depth (m)</strong></h3>";
+
+      div.innerHTML = legendInfo;
+    
+      for (let i = 0; i < colors.length; i++) {
+        console.log(colors[i]),
+        console.log(labels[i]),
+        div.innerHTML +=
+          "<i style='background: " + colors[i] + "'></i><span>" + labels[i] + "</span><br><br>";
+      }
+    
+      let quakeInfoLink = "<i><a href='https://earthquake.usgs.gov/earthquakes/map/?extent=-78.90393,-228.51563&extent=74.21198,259.10156>More...</a></i>";
+    
+      div.innerHTML += quakeInfoLink;
+      
+    return div;
+    };
+  
+    // Adding the legend to the map
+    legend.addTo(myMap);
 
   };
 
