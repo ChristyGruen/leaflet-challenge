@@ -1,8 +1,12 @@
-#  <span style="color:tan"> **Module 14 Leaflet Challenge**  </span>
+#  <span style="color:tan"> **Module 15 Leaflet Challenge**  </span>
 ### Chris Gruenhagen 13Jan2023
 ## **Homework Log**
 
 The Module 15 Challenge homework is located in the leaflet-challenge repository.
+
+<a href = "https://christygruen.github.io/leaflet-challenge/ " target = "_blank"> Earthquakes over the last 7 days - Leaflet Map Challenge </a> -->
+
+
 
 ![Alt text](/Leaflet-Part-1/basemap.png "USGS GeoJSON Feed main page")
 
@@ -43,10 +47,12 @@ These requirements apply only to "Part 1: Create the Earthquake Visualization" a
         https://emojipedia.org
         https://commons.wikimedia.org/wiki/Emoji/Table
         https://www.markdownguide.org/basic-syntax/
+        https://colorbrewer2.org/#type=sequential&scheme=YlGn&n=9
+        https://www.w3schools.com/colors/colors_picker.asp
 
         
 ***See below for original homework instructions***
-# <span style="color:tan"> Module 14 Leaflet Challenge </span>
+# <span style="color:tan"> Module 15 Leaflet Challenge </span>
 Due Jan 23, 2023 by 11:59pm 
 
 Points 100 
@@ -69,12 +75,7 @@ The USGS is interested in building a new set of tools that will allow them to vi
 
 ##  <span style="color:yellow"> **Files** </span>
 
-NONE
-<!-- 
-Download the following files to help you get started:
-
-<a href = "https://static.bc-edx.com/data/dl-1-1/m14/lms/starter/Starter_Code_v1.zip " target = "_blank"> Module 14 Challenge files </a> -->
-
+NO Starter Files provided.
 
 ##  <span style="color:green">  **Instructions** </span>
 The instructions for this activity are broken into two parts:
