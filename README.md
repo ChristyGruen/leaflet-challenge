@@ -4,7 +4,7 @@
 
 The Module 15 Challenge homework is located in the leaflet-challenge repository.
 
-<a href = "https://christygruen.github.io/leaflet-challenge/ " target = "_blank"> Earthquakes over the last 7 days - Leaflet Map Challenge </a> -->
+An interactive leaflet map showing all earthquakes over the last 7 days is available at <a href = "https://christygruen.github.io/leaflet-challenge/ " target = "_blank"> https://christygruen.github.io/leaflet-challenge/ </a>
 
 
 
