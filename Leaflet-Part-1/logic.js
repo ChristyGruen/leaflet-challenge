@@ -3,14 +3,16 @@
 //C:\Users\chrisgru\UofM-VIRT-DATA-PT-09-2022-U-LOLC\15-Mapping-Web\1\Activities\10-Stu_GeoJson\Solved
 
 // Store our API endpoint as queryUrl.
-const url = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2023-01-14&endtime=2023-01-15";
-// &maxlongitude=-69.52148437&minlongitude=-123.83789062&maxlatitude=48.74894534&minlatitude=25.16517337";
+const equrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
 
-const dataPromise = d3.json(url);
-console.log("Data Promise: ",dataPromise);
+const techurl = 'https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_plates.json';
+// const dataPromise = d3.json(url);
+// console.log("Data Promise: ",dataPromise);
 
 // Perform a GET request to the query URL/
-d3.json(url).then(function (data) {
+d3.json(equrl).then(function (data) {
+  d3.json(techurl).then(function(tplates){
+
   // Once we get a response, send the data.features object to the createFeatures function.
   console.log(data.features);
   let colorlist = ['#f0f921','#fdca26','#fb9f3a','#ed7953','#d8576b','#bd3786','#9c179e','#7201a8','#46039f','#0d0887']//reverse plasma
@@ -38,7 +40,7 @@ d3.json(url).then(function (data) {
   data.features.forEach(feature=> {
 
     circleMarkers.push(L.circleMarker([feature.geometry.coordinates[1],feature.geometry.coordinates[0]], {
-      opacity: .9,
+      opacity: 0.9,
       color: getColor(feature.geometry.coordinates[2]),
       fillColor: getColor(feature.geometry.coordinates[2]),
       radius: feature.properties.mag*2,
@@ -46,25 +48,29 @@ d3.json(url).then(function (data) {
   });
 
 
-
-
-//   //need to split this off into a separate data pull
-//   https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_plates.json
-// // Create a Polygon, and pass in some initial options.
-
 const tectonicPlates = [];
-data.features.forEach(feature=>{
-    tectonicPlates.push(L.polygon([feature.geometry.coordinates
+
+tplates.features.forEach(feature=>{
+    //reverse coordinates from lng lat to lat lng... but polygon coordinates are listy list of lists [[[long,lat],[lng,lat],[lng,lat]]]
+    const correctlatlong = feature.geometry.coordinates.map(list=>{
+        return list.map(coords => {
+          return [coords[1],coords[0]]
+        })
+    })
+    tectonicPlates.push(L.polyline([correctlatlong
     ], {
-      color: "purple",
-      fillColor: "yellow",
-      fillOpacity: 0.75
+      color: "#94b8b8",
+      // fillColor: "yellow",
+      // fillOpacity: 0.1
     }).bindPopup(feature.properties.PlateName));
     console.log(tectonicPlates)
   });
+
+
       console.log(tectonicPlates)
       console.log(circleMarkers)
   createFeatures(data.features);
+  
   
 
 
@@ -92,7 +98,7 @@ data.features.forEach(feature=>{
 
     // Create an overlay object to hold our overlay.
     let overlayMaps = {
-      CircleCities:circleLayer,
+      Earthquakes:circleLayer,
       // Earthquakes: earthquakes
       Tectonics: tectonicsLayer,
     };
@@ -161,17 +167,15 @@ data.features.forEach(feature=>{
     function onEachFeature(feature, layer) {
       layer.bindPopup(`<h1>${feature.properties.place}</h1><hr><h3>Magnitude ${feature.properties.mag}<\h3><hr><h3>Depth ${feature.geometry.coordinates[2]}`);
     }
-    var circleLayer = L.geoJSON(earthquakeData, {
+    var popsicle = L.geoJSON(earthquakeData, {
       onEachFeature: onEachFeature
     });
 
-    // var earthquakes = L.geoJSON(earthquakeData, {
-    //   onEachFeature: onEachFeature
-    // });
-
-    // Send our earthquakes layer to the createMap function/
-    createMap(circleLayer);
+    createMap(popsicle);
   }
 
-//end of d3
+
+  //end of tplates d3
+})
+//end of eq d3
 });

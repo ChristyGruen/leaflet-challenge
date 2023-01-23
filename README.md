@@ -2,7 +2,9 @@
 ### Chris Gruenhagen 13Jan2023
 ## **Homework Log**
 
-The Module 15 Challenge homework is located in the leaflet-challenge repository.  
+The Module 15 Challenge homework is located in the leaflet-challenge repository.
+
+![Alt text](/Leaflet-Part-1/basemap.png "USGS GeoJSON Feed main page")
 
 
 ---
@@ -146,3 +148,5 @@ https://github.com/fraxen/tectonicplates
 
 <!-- Links to New Things I've learned:
 https://stackoverflow.com/questions/13239368/how-to-close-git-commit-editor -->
+<!-- https://colorbrewer2.org/#type=sequential&scheme=YlGn&n=9 -->
+<!-- https://www.w3schools.com/colors/colors_picker.asp -->
